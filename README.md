@@ -1,42 +1,58 @@
 # 🛠️ Databricks Data Engineering Pipeline (Medallion Architecture)
 
-This repository contains a structured data engineering pipeline built in **Databricks**, following the **Medallion Architecture** (Bronze, Silver, Gold layers). The pipeline processes and transforms raw data related to customers, products, and transactions into meaningful daily sales insights.
+This repository contains a structured data engineering pipeline built in **Databricks**, following the **Medallion Architecture** (Bronze, Silver, Gold layers). The pipeline processes raw data related to customers, products, and transactions and transforms it into business-ready insights, including daily sales reports.
 
 ---
 
 ## 🏗️ Architecture Overview
 
 ### 🔹 Bronze Layer
-Raw ingestion of data in its original format. It includes:
-- `customer`, `product`, and `transaction` data.
+Raw ingestion of data in its original format from multiple file types:
+- **File Formats:** CSV, JSON, Parquet
+- **Source Entities:** `customer`, `product`, and `transaction`
+- **Operations:** 
+  - Load raw data into the Databricks file system
+  - Create a **Bronze database**
+  - Import raw files as Delta tables in the Bronze layer
 
 ### 🔸 Silver Layer
-Cleansed, normalized, and enriched data. Typical transformations include:
-- Data type casting
-- Handling missing or duplicate records
-- Creating relationships between tables
+Cleansed, standardized, and enriched data:
+- **Transformations:**
+  - Casting data types
+  - Handling nulls and duplicates
+  - Creating relationships via keys
+- **Structured into a Silver database** for analytical readiness
 
 ### 🟡 Gold Layer
-Business-level aggregations and insights. In this project:
-- Daily sales metrics
+Business-level aggregations and metrics:
+- Daily sales summaries
 - Daily sales by product category
+- Gold tables are optimized for **Power BI reporting**
+
+---
+
+## 📊 Power BI Integration
+
+Gold layer tables are connected to **Power BI** using:
+- A **secret access token**
+- The **Databricks cluster address**
+
+This allows dynamic, real-time reporting of business metrics directly from Databricks into Power BI dashboards.
 
 ---
 
 ## 🚀 Getting Started
 
-To use this pipeline in your Databricks workspace:
+To run this pipeline in your Databricks workspace:
 
-1. Clone this repository:
+1. **Clone this repository:**
    ```bash
-   git clone https://github.com/your-username/databricks-medallion-pipeline.git
-## 🚀 Getting Started
+   git clone https://github.com/bahmangm/databricks-data-engineering-project.git
 
-To use this pipeline in your Databricks workspace:
 
-1. **Upload the notebooks to your Databricks workspace.**
+2. **Upload the notebooks to your Databricks workspace.**
 
-2. **Execute the notebooks in the following order:**
+3. **Execute the notebooks in the following order:**
 
 ### 🔹 Bronze Layer
 
@@ -60,22 +76,24 @@ To use this pipeline in your Databricks workspace:
 
 ---
 
-## 🧰 Technologies Used
+### 🧰 Technologies Used
 
-- **Databricks** – Unified data analytics platform
-- **Apache Spark** – Distributed processing engine for big data
-- **Delta Lake** – Storage layer providing ACID transactions and scalable metadata
-- **PySpark** – Python API for Spark
-- **SQL** – Used for querying and managing structured data
-- **Notebook Interface** – Interactive development and execution environment
+- **Databricks** – Unified data analytics platform for big data and AI  
+- **Apache Spark** – Distributed data processing engine  
+- **Delta Lake** – Storage layer that brings ACID transactions and scalable metadata  
+- **PySpark** – Python API for Apache Spark  
+- **SQL** – Language for querying and transforming structured data  
+- **Power BI** – Business intelligence tool used to visualize and report on Gold layer data  
+- **Notebook Interface** – Interactive development and orchestration environment in Databricks  
 
 ---
 
-## 📌 Key Concepts
+### 📌 Key Concepts
 
-- **Medallion Architecture** – Organizing data pipelines into Bronze, Silver, and Gold layers
-- **Data Ingestion** – Loading raw data into the Bronze layer
-- **Data Cleansing & Transformation** – Standardizing and enriching data in the Silver layer
-- **Data Aggregation** – Creating business-level summaries in the Gold layer
-- **Delta Tables** – Versioned and reliable data storage with ACID guarantees
-- **Notebook Orchestration** – Logical execution of notebooks in a layered order
+- **Medallion Architecture** – Organizes data pipelines into Bronze (raw), Silver (cleaned), and Gold (aggregated) layers  
+- **Multi-format Ingestion** – Supports input files in CSV, JSON, and Parquet formats  
+- **Data Transformation** – Cleansing, normalization, type casting, and relationship building  
+- **Delta Tables** – Versioned, reliable data storage with ACID guarantees  
+- **Notebook Orchestration** – Logical execution of layered notebooks in Databricks  
+- **Power BI Integration** – Secure connection of Gold layer tables to Power BI via token and cluster address for real-time analytics  
+
